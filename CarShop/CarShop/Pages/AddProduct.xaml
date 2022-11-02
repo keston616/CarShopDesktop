@@ -1,0 +1,213 @@
+﻿<Page x:Class="CarShop.AddProduct"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarShop"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1400"
+      Background="White"
+      Title="AddProduct">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="100,0,1,0"/>
+            <Setter Property="Foreground" Value="Gray"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="closeButton" 
+                FontSize="16"
+                Click="closeButton_Click"
+                Margin="0,30,40,0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Width="200"
+                Grid.Column="1"
+                Content="Назад"/>
+        <StackPanel Margin="70,0,80,60" VerticalAlignment="Top" Grid.Column="0">
+            <TextBlock 
+                   Margin="0,30,140,0"
+                   TextWrapping="Wrap" 
+                   FontWeight="Bold"
+                   FontSize="30"
+                   Text="Заполните информацию о товаре"/>
+            <TextBox x:Name="nameProduct"
+                     Margin="0,20,0,0"
+                     Padding="30,0,0,0"
+                     MaxLength="70"
+                     GotFocus="nameProduct_GotFocus"
+                     LostFocus="nameProduct_LostFocus"
+                            Text="Название товара"/>
+            <ComboBox x:Name="categoryList"
+                              Height="35"
+                      Margin="0,20,0,0"
+                      SelectionChanged="categoryList_SelectionChanged"
+                              VerticalContentAlignment="Center"
+                              Padding="10,0,10,0"
+                              BorderThickness="0.5"
+                          BorderBrush="Gray"
+                          DisplayMemberPath="Name"
+                              Background="White"
+                              Foreground="Black"
+                              FontSize="16"
+                              materialDesign:HintAssist.Hint="Категория" >
+            </ComboBox>
+            <ComboBox x:Name="subcategoryList"
+                              Height="35"
+                              VerticalContentAlignment="Center"
+                              Padding="10,0,10,0"
+                      Margin="0,20,0,0"
+                              BorderThickness="0.5"
+                          BorderBrush="Gray"
+                          DisplayMemberPath="Name"
+                              Background="White"
+                              Foreground="Black"
+                              FontSize="16"
+                              materialDesign:HintAssist.Hint="Подкатегория" >
+            </ComboBox>
+            <TextBlock x:Name="WarName"
+                       Visibility="Hidden"
+                Text="Поле не заполнено" 
+                Foreground="Red" 
+                FontSize="11"/>
+            <Grid   Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="BrandName"
+                              Height="35"
+                              VerticalContentAlignment="Center"
+                              Padding="10,0,10,0"
+                              BorderThickness="0.5"
+                          BorderBrush="Gray"
+                          DisplayMemberPath="Name"
+                              Background="White"
+                              Foreground="Black"
+                              FontSize="16"
+                              materialDesign:HintAssist.Hint="Производитель" >
+                </ComboBox>
+                <Button  Click="AddNewBrand_Button"
+                             Padding="0"
+                             Margin="15,0,0,0"
+                             Height="35"
+                             Width="35"
+                                Grid.Column="1" >
+                    <Image Source="/Images/addIcons.png"  
+                               Height="28"
+                               Width="28" />
+                </Button>
+            </Grid>
+            <TextBlock x:Name="WarBrand"
+                       Visibility="Hidden"
+                Text="Производитель не выбран" 
+                Foreground="Red" 
+                FontSize="11"/>
+            <Grid   Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="UnitField"
+                              Height="35"
+                              VerticalContentAlignment="Center"
+                          BorderBrush="Gray"
+                              Padding="10,0,10,0"
+                              BorderThickness="0.5"
+                              Background="White"
+                              Foreground="Black"
+                          DisplayMemberPath="Name"
+                              FontSize="16"
+                              materialDesign:HintAssist.Hint="Единица измерения">
+                </ComboBox>
+                <Button  Click="AddNewUntir_Button"
+                             Padding="0"
+                             Margin="15,0,0,0"
+                             Height="35"
+                             Width="35"
+                                Grid.Column="1" >
+                    <Image Source="/Images/addIcons.png"  
+                               Height="28"
+                               Width="28" />
+                </Button>
+            </Grid>
+            <TextBlock x:Name="WarUnit"
+                       Visibility="Hidden"
+                Text="Единица измерения не выбрана не выбран" 
+                Foreground="Red" 
+                FontSize="11"/>
+            <TextBox x:Name="CountProductField"
+                     Margin="0,5,0,0"
+                     Padding="30,0,0,0"
+                     GotFocus="CountProductField_GotFocus"
+                     LostFocus="CountProductField_LostFocus"
+                            Text="Количество" PreviewTextInput="CountProductField_PreviewTextInput"/>
+            <TextBox x:Name="PriceField"
+                     Margin="0,20,0,0"
+                     Padding="30,0,0,0"
+                     PreviewTextInput="PriceField_PreviewTextInput"
+                     GotFocus="PriceField_GotFocus"
+                     LostFocus="PriceField_LostFocus"
+                     Text="Цена"/>
+            <TextBox x:Name="Description" 
+                           MinHeight="100"
+                     Height="Auto"
+                     Padding="4"
+                     GotFocus="Discription_GotFocus"
+                     LostFocus="Discription_LostFocus"
+                     Text="Подробное описание товара"
+                     TextWrapping="Wrap"
+                         VerticalContentAlignment="Top"
+                         Margin="0,20,0,0"
+                           Width="Auto" 
+                           HorizontalAlignment="Stretch"/>
+            <Button x:Name="GoBackButton" 
+                Click="GoBackButton_Click"
+                    Margin="0,20,0,0"
+                    FontSize="16"
+                VerticalAlignment="Center" 
+                    HorizontalAlignment="Stretch" 
+                    Content="Добавление" />
+        </StackPanel>
+        <ScrollViewer Grid.Column="1" Margin="0,100,0,0">
+            <StackPanel Orientation="Vertical" >
+            <ListBox x:Name="ImageList" ItemsSource="{Binding Pictures}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Width="200" Source="{Binding Image}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button    Padding="0"
+                             Margin="15,0,40,0"
+                             Height="35"
+                       Click="NewImage_Click"
+                                Grid.Column="1" >
+                <StackPanel Orientation="Horizontal">
+
+                    <Path Data = "M43 38.2222V4.77778C43 2.15 40.85 0 38.2222 0H4.77778C2.15 0 0 2.15 0 4.77778V38.2222C0 40.85 2.15 43 4.77778 43H38.2222C40.85 43 43 40.85 43 38.2222ZM14.0944 26.23L19.1111 32.2739L26.5167 22.7422C26.9944 22.1211 27.95 22.1211 28.4278 22.7661L36.8128 33.9461C37.41 34.7344 36.8367 35.8572 35.8572 35.8572H7.21444C6.21111 35.8572 5.66167 34.7106 6.28278 33.9222L12.2311 26.2778C12.685 25.6567 13.5928 25.6328 14.0944 26.23Z"
+                                      Fill="white" 
+                                      Stretch="Fill" 
+                                      Height="21"
+                                      Width="21" />
+                    <TextBlock Text="Редактировать картинку" Margin="10,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="WarImage"
+                       Visibility="Hidden"
+                       HorizontalAlignment="Center"
+                Text="Выбрите минимум 1 картинку" 
+                Foreground="Red" 
+                FontSize="11"/>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

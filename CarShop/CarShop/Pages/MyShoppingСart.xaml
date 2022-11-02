@@ -1,0 +1,447 @@
+﻿<Page x:Class="CarShop.MyShoppingСart"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarShop"
+      mc:Ignorable="d" 
+      Background="White"
+      Loaded="Page_Loaded"
+      d:DesignHeight="700" d:DesignWidth="1000"
+      Title="MyShoppingСart">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="#0000CD"/>
+            </Style>
+            <Style  TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="#212121"/>
+                <Setter Property="Height" Value="30"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="#059bff"/>
+                <Setter Property="BorderBrush" Value="#059bff"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="110"/>
+            </Style>
+            <local:GoodsConverter x:Key="myPriceGoodConverter"></local:GoodsConverter>
+            <local:TotalPriceConverter x:Key="myTotalPriceConverter"></local:TotalPriceConverter>
+            <local:DeliveryConverter x:Key="myDeliveryConverter"></local:DeliveryConverter>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="470"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="infoChapter"
+            Text="ОБЩАЯ ИНФОРМАЦИЯ"  
+                   Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Height="30"
+                   Margin="310,0,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Foreground="Black"
+                   FontSize="20" 
+                   />
+        <ListBox  Grid.Row="1" 
+                  BorderThickness="0,0,2,0"
+                  BorderBrush="#F5F5F5"
+                  Height="230"
+                  VerticalAlignment="Top"
+                  Margin="0,0,0,0"
+                  HorizontalAlignment="Right" 
+                  Grid.Column="0" Width="170">
+            <Border x:Name="InfoClientButton"
+                MouseLeftButtonDown="InfoClient_Visible"
+                    Width="200">
+                <TextBlock Text="Общая информация" />
+            </Border>
+            <Border x:Name="CartButton"
+                MouseLeftButtonDown="Cart_Visible" 
+                    Width="200">
+                <TextBlock Text="Корзина"/>
+            </Border>
+            <Border x:Name="OrderButton"
+                MouseLeftButtonDown="Order_Visible"
+                    Width="200">
+                <TextBlock Text="Заказы"/>
+            </Border>
+            <Border x:Name="passUpdateButton"
+                MouseLeftButtonDown="Border_MouseLeftButtonDown"
+                    Width="200">
+                <TextBlock Text="Смена пароля"/>
+            </Border>
+        </ListBox>
+        <Grid x:Name="InfoClient"
+            Grid.Row="1"
+              Visibility="Hidden"
+              Margin="30,0,0,0"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBlock" >
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+                <Style TargetType="TextBox" >
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="Height" Value="28"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="Width" Value="380"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </Grid.Resources>
+            <TextBlock Text="Эл. почта" Grid.Row="0"/>
+            <TextBlock Text="Номер телефона" Grid.Row="1"/>
+            <TextBlock Text="Фамилия" Grid.Row="2"/>
+            <TextBlock Text="Имя" Grid.Row="3"/>
+            <TextBlock Text="Отчество" Grid.Row="4"/>
+            <TextBox x:Name="email" 
+                    Text="{Binding Email}"
+                     Grid.Row="0" Grid.Column="1"/>
+            <TextBox x:Name="phone" 
+                    Text="{Binding User.Phone}"
+                     MaxLength="11"
+                     PreviewTextInput="phone_PreviewTextInput"
+                     Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="surname" 
+                    Text="{Binding User.Surname}"
+                     Grid.Row="2" Grid.Column="1"/>
+            <TextBox x:Name="name" 
+                    Text="{Binding User.Name}"
+                     Grid.Row="3" Grid.Column="1"/>
+            <TextBox x:Name="middleName"
+                    Text="{Binding User.MiddleName}"
+                     Grid.Row="4" Grid.Column="1"/>
+            <Button x:Name="updateButton"
+                    Content="Изменить"
+                    Grid.Row="5" 
+                    Click="updateButton_Click"
+                    Margin="270,5,0,0"
+                    HorizontalAlignment="Left"
+                    Grid.Column="1"/>
+            <Button x:Name="cancleButton"
+                    Content="Отмена" 
+                    Visibility="Hidden"
+                    Click="cancleButton_Click"
+                    Margin="270,5,0,0"
+                    HorizontalAlignment="Left"
+                    Grid.Row="5" 
+                    Grid.Column="1"/>
+            <Button x:Name="saveButton" 
+                    Content="Сохранить" 
+                    Grid.Row="5" 
+                    Click="saveButton_Click"
+                    Visibility="Hidden"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Left"
+                    Grid.Column="0"/>
+        </Grid>
+        <Grid x:Name="Cart"
+            Grid.Row="1"
+              Visibility="Hidden"
+              Margin="10,0,190,0"
+              Grid.Column="1">
+            <StackPanel  Orientation="Vertical">
+                <ListView x:Name="CartList"
+                    Width="1000" 
+                          ItemsSource="{Binding GoodSales}"
+                    HorizontalAlignment="Left">
+                    <ListView.Resources>
+                        <Style  TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                        <Border BorderThickness="0,0,0,2" BorderBrush="#99DAFF" Background="Transparent">
+                                            <Label x:Name="ContentHeader" Content="{TemplateBinding Content}" Padding="14,5,5,12" 
+                                           Width="{TemplateBinding Width}" HorizontalAlignment="Left" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Good.Name}"  Width="300"></GridViewColumn>
+                            <GridViewColumn Header="Цена" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Good.Price, StringFormat={}{0:#.}}" Foreground="Blue" FontSize="15"/>
+                                            <TextBlock Text=" руб." Foreground="Blue" FontSize="15"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Количество"   Width="140">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBox x:Name="Count" 
+                                                     Height="25"
+                                                     Width="30"
+                                                     LostFocus="Count_LostFocus"
+                                                     PreviewTextInput="Count_PreviewTextInput" 
+                                                     VerticalContentAlignment="Center"
+                                                     HorizontalContentAlignment="Center"
+                                                     Text="{Binding Count}">
+                                                <TextBox.Style>
+                                                    <Style TargetType="TextBox"/>
+                                                </TextBox.Style>
+                                            </TextBox>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Общая цена"
+                                            DisplayMemberBinding="{Binding Converter={StaticResource myPriceGoodConverter}, StringFormat={}{0:#.} руб.}"
+                                            Width="160">
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock x:Name="SumCost" 
+                           Margin="0,20,0,0"
+                           HorizontalAlignment="Right" 
+                           FontSize="15" 
+                           Text="{Binding Converter={StaticResource myTotalPriceConverter}, StringFormat={}Итоговая цена {0} руб.}"/>
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" 
+                            Margin="20,10,0,0">
+                        <Button Content="Удалить" Click="Cart_Deleted"/>
+                        <Button Content="Удалить всё"
+                            Click="Cart_FullDeleted" 
+                            Margin="20,0,0,0"/>
+                    </StackPanel>
+                    <Button Content="Оформить" Click="Arrange_Click" HorizontalAlignment="Right" Margin="0,10,0,0"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+        <Grid  x:Name="Order"
+            Grid.Row="1"
+               Visibility="Hidden"
+              Grid.Column="1">
+            <ListBox x:Name="ListOrders"
+                HorizontalAlignment="Left"
+                     Margin="40,0,0,0" 
+                     Width="700"
+                     
+                     VerticalAlignment="Top">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MinHeight="115">
+                            <Border>
+                                <Grid HorizontalAlignment="Right" 
+                                  Background="#F5F5F5"
+                                  Width="680" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal"
+                                Margin="20,10,0,5"
+                                Grid.Row="0"
+                                VerticalAlignment="Top">
+                                        <TextBlock Text="Заказ №"
+                                           Padding="0"
+                                           Margin="0,0,0,0"
+                                   Foreground="#000080" 
+                                   FontSize="18"/>
+                                        <TextBlock Text="{Binding Id}" 
+                                   Foreground="#000080" 
+                                           VerticalAlignment="Bottom"
+                                            Margin="4,0,0,-3"
+                                   FontSize="18"/>
+                                        <TextBlock Text="от "
+                                   Foreground="Gray" 
+                                   Margin="10,6,0,0" />
+                                        <TextBlock Text="{Binding Date , StringFormat={}{0:dd.MM.yy}}"
+                                   Foreground="Gray" 
+                                   Margin="0,6,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Top"
+                                            Margin="0,13,20,0"
+                                            Grid.Row="0"
+                                            HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding IsDelivered, Converter={StaticResource myDeliveryConverter}}"
+                                         Foreground="Gray" />
+                                        <TextBlock Text="{Binding Converter={StaticResource myTotalPriceConverter}}"
+                                             Margin="10,0,00,0"
+                                             Foreground="Gray"/>
+                                        <TextBlock Text="руб."
+                                             Margin="4,0,00,0"
+                                             Foreground="Gray"/>
+                                    </StackPanel>
+                                    <Expander Grid.Row="1" Background="#F5F5F5">
+                                        <ListView x:Name="ListPastOrders" 
+                                          ItemsSource ="{Binding GoodSales}"
+                                          Width="680" 
+                                                  VerticalContentAlignment="Center"
+                                              Grid.Row="1"
+                                          HorizontalAlignment="Left">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Название"
+                                                                    
+                                                            Width="200">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text ="{Binding Good.Name}" />
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Цена"  Width="100">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Grid Width="90">
+                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                                                        <TextBlock Text ="{Binding Good.Price, StringFormat={}{0:#.}}" />
+                                                                        <TextBlock Text =" руб." />
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Количество" 
+                                                                Width="140">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Grid Width="120">
+                                                                    <TextBlock Text ="{Binding Count}" 
+                                                                               HorizontalAlignment="Center" />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Общая цена"
+                                                                Width="160" >
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Grid Width="150">
+                                                                    <StackPanel Orientation="Horizontal" 
+                                                                                HorizontalAlignment="Center">
+                                                                        <TextBlock Text ="{Binding StringFormat={}{0:#.}, 
+                                                                        Converter={StaticResource myPriceGoodConverter}}" />
+                                                                        <TextBlock Text =" руб." />
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Expander>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid  x:Name="OrderNull"
+            Grid.Row="1"
+               Visibility="Hidden"
+              Grid.Column="1">
+            <TextBlock Text="Истории заказов пуста"
+                       FontSize="23"
+                       x:Name="OrderText"
+                       Margin="0,100,0,60"
+                       Height="30"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Foreground="Black"/>
+        </Grid>
+        <Grid  x:Name="UpdatePassword"
+            Grid.Row="1"
+               Visibility="Hidden"
+              Grid.Column="1">
+            <StackPanel Orientation="Vertical"
+                        Margin="40,20,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Width" Value="300"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="Foreground" Value="Gray"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="Width" Value="300"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Grid Margin="0,17,0,0">
+                    <TextBox x:Name="passwordfield1"
+                             Text="Старый пароль"
+                             GotFocus="passwordfield_GotFocus">
+                    </TextBox>
+                    <PasswordBox x:Name="passwordPast" 
+                                 BorderThickness="1"
+                                 Visibility="Hidden"
+                                 LostFocus="passwordPasr_LostFocus"/>
+                </Grid>
+                <TextBlock x:Name="passPastWar"
+                Text="Неверный старый пароль" 
+                       Visibility="Hidden"
+                       Foreground="Red"
+                       FontSize="11"/>
+                <Grid Margin="0,13,0,0">
+                    <TextBox x:Name="passwordfield2"
+                             Text="Новый пароль"
+                             GotFocus="passwordfield2_GotFocus">
+                    </TextBox>
+                    <PasswordBox x:Name="passwordNew" 
+                                 BorderThickness="1"
+                                 Visibility="Hidden"
+                                LostFocus="passwordNew_LostFocus"/>
+                </Grid>
+                <TextBlock x:Name="passNewWar"
+                Text="Минимальная длинна 6 символов" 
+                       Visibility="Hidden"
+                       Foreground="Red"
+                       FontSize="11"/>
+                <Button Content="Изменить" 
+                        Margin="0,13,0,0"
+                        Width="100"
+                        Click="Button_Update"
+                        HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

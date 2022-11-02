@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_Good_Brand" FromRole="Brand" ToRole="Good" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Subcategories" Relationship="Self.FK_SubcategoriesId_Category" FromRole="Category" ToRole="Subcategories" />
+  </EntityType>
+  <EntityType Name="DateAuthorization">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_DateAuthorization_User" FromRole="DateAuthorization" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Good">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="SubcategoriesId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="UnitId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK_Good_Brand" FromRole="Good" ToRole="Brand" />
+    <NavigationProperty Name="Subcategory" Relationship="Self.FK_Good_Subcategories" FromRole="Good" ToRole="Subcategories" />
+    <NavigationProperty Name="Unit" Relationship="Self.FK_Good_Unit" FromRole="Good" ToRole="Unit" />
+    <NavigationProperty Name="GoodSales" Relationship="Self.FK_GoodSale_Good" FromRole="Good" ToRole="GoodSale" />
+    <NavigationProperty Name="Pictures" Relationship="Self.FK_Image_Good" FromRole="Good" ToRole="Picture" />
+  </EntityType>
+  <EntityType Name="GoodSale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GoodId" Type="Int32" Nullable="false" />
+    <Property Name="SaleId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Good" Relationship="Self.FK_GoodSale_Good" FromRole="GoodSale" ToRole="Good" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_GoodSale_Sale" FromRole="GoodSale" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Picture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GoodId" Type="Int32" Nullable="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Good" Relationship="Self.FK_Image_Good" FromRole="Picture" ToRole="Good" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="IsDelivered" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="GoodSales" Relationship="Self.FK_GoodSale_Sale" FromRole="Sale" ToRole="GoodSale" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Sale_User" FromRole="Sale" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Subcategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_SubcategoriesId_Category" FromRole="Subcategories" ToRole="Category" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_Good_Subcategories" FromRole="Subcategories" ToRole="Good" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_Good_Unit" FromRole="Unit" ToRole="Good" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DateAuthorizations" Relationship="Self.FK_DateAuthorization_User" FromRole="User" ToRole="DateAuthorization" />
+    <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_User" FromRole="User" ToRole="Sale" />
+  </EntityType>
+  <Association Name="FK_Good_Brand">
+    <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+    <End Role="Good" Type="Self.Good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubcategoriesId_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Subcategories" Type="Self.Subcategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Subcategories">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DateAuthorization_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="DateAuthorization" Type="Self.DateAuthorization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DateAuthorization">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Good_Subcategories">
+    <End Role="Subcategories" Type="Self.Subcategory" Multiplicity="1" />
+    <End Role="Good" Type="Self.Good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subcategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="SubcategoriesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Good_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="Good" Type="Self.Good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoodSale_Good">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="GoodSale" Type="Self.GoodSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GoodSale">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_Good">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="Picture" Type="Self.Picture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Picture">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoodSale_Sale">
+    <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
+    <End Role="GoodSale" Type="Self.GoodSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GoodSale">
+        <PropertyRef Name="SaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sale_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="Self.Brand" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="DateAuthorizations" EntityType="Self.DateAuthorization" />
+    <EntitySet Name="Goods" EntityType="Self.Good" />
+    <EntitySet Name="GoodSales" EntityType="Self.GoodSale" />
+    <EntitySet Name="Pictures" EntityType="Self.Picture" />
+    <EntitySet Name="Sales" EntityType="Self.Sale" />
+    <EntitySet Name="Subcategories" EntityType="Self.Subcategory" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Units" EntityType="Self.Unit" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Good_Brand" Association="Self.FK_Good_Brand">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Good" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubcategoriesId_Category" Association="Self.FK_SubcategoriesId_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Subcategories" EntitySet="Subcategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DateAuthorization_User" Association="Self.FK_DateAuthorization_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="DateAuthorization" EntitySet="DateAuthorizations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Good_Subcategories" Association="Self.FK_Good_Subcategories">
+      <End Role="Subcategories" EntitySet="Subcategories" />
+      <End Role="Good" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Good_Unit" Association="Self.FK_Good_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="Good" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoodSale_Good" Association="Self.FK_GoodSale_Good">
+      <End Role="Good" EntitySet="Goods" />
+      <End Role="GoodSale" EntitySet="GoodSales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_Good" Association="Self.FK_Image_Good">
+      <End Role="Good" EntitySet="Goods" />
+      <End Role="Picture" EntitySet="Pictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoodSale_Sale" Association="Self.FK_GoodSale_Sale">
+      <End Role="Sale" EntitySet="Sales" />
+      <End Role="GoodSale" EntitySet="GoodSales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sale_User" Association="Self.FK_Sale_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Sale" EntitySet="Sales" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

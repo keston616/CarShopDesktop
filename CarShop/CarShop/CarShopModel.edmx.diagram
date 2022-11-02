@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5a8c227f825f457f94baed8e938b94f3" Name="Diagram1">
+        <EntityTypeShape EntityType="CarShopModel.Brand" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Category" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.DateAuthorization" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Good" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.GoodSale" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Picture" Width="1.5" PointX="7.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Sale" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Subcategory" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.sysdiagram" Width="1.5" PointX="7.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.Unit" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarShopModel.User" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="CarShopModel.FK_Good_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_SubcategoriesId_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_DateAuthorization_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_Good_Subcategories" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_Good_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_GoodSale_Good" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_Image_Good" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_GoodSale_Sale" ManuallyRouted="false" />
+        <AssociationConnector Association="CarShopModel.FK_Sale_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

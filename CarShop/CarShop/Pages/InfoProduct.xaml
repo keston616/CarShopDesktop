@@ -1,0 +1,157 @@
+﻿<Page x:Class="CarShop.Pages.InfoProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarShop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="1400"
+      Title="InfoProduct">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="170"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="233*"/>
+                <ColumnDefinition Width="317*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="342.4"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Name}"
+                       VerticalAlignment="Center"
+                       Grid.Row="0"
+                       Margin="20,0,0,0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       FontSize="20" />
+            <StackPanel Orientation="Vertical"   Grid.Column="0"
+                       Grid.Row="1">
+                <Image x:Name="ImageMain"
+                   Height="220"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                    Source="{Binding GoodImage}"/>
+                <DockPanel    
+                          Height="100"
+                          Margin="10,20,10,0"
+                      VerticalAlignment="Bottom">
+                    <DockPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#f5f5f5"/>
+                            <Setter Property="Width" Value="20"/>
+                        </Style>
+                    </DockPanel.Resources>
+                    <Border MouseLeftButtonUp="OnScrollLeft">
+                        <Image  Height="17">
+                            <Image.Source>
+                                <BitmapImage UriSource="/Images/next.png" Rotation="Rotate180" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                    <ListView x:Name="ImageList" 
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding Pictures}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          HorizontalAlignment="Stretch" 
+                          Width="384">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                                    <Image Source="{Binding Image}" 
+                                   VerticalAlignment="Center"
+                                   Height="80"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Border MouseLeftButtonUp="OnScrollRight" >
+                        <Image Source="/Images/next.png" 
+                           Height="18"/>
+                    </Border>
+                </DockPanel>
+            </StackPanel>
+            <StackPanel 
+                Grid.Row="1" 
+                    MinHeight="342.4"
+                    Grid.Column="1" Grid.RowSpan="2">
+                <Border Background="#f5f5f5">
+                    <Border.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="17"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Style>
+                    </Border.Resources>
+                    <StackPanel Orientation="Vertical" Margin="30">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0,20,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,0">
+                            <TextBlock Text="Бренд:  " />
+                            <TextBlock Text="{Binding Brand.Name}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Цена  " />
+                            <TextBlock Text="{Binding Price}" />
+                            <TextBlock Text=" руб. / " />
+                            <TextBlock Text="{Binding Unit.Name}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Описание:" />
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" TextAlignment="Justify" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Количество:" 
+                                       VerticalAlignment="Center"/>
+                            <TextBox x:Name="CountProduct" 
+                                     Text="1"
+                                     FontSize="15"
+                                     PreviewTextInput="CountProduct_PreviewTextInput" 
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Margin="10,0,0,0"
+                                     Width="30">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox"/>
+                                </TextBox.Style>
+                            </TextBox>
+                            <Button Content="В корзину" 
+                                    Background="DarkBlue" 
+                                    Margin="20,0,0,0"
+                                    Width="120"
+                                    Click="GoCart_Click"
+                                    VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Button Background="DarkBlue"
+                    Width="100"
+                    Grid.Row="0"
+                Click="Button_Click"  
+                VerticalAlignment="Top"
+                Margin="0,20,0,0"
+                    Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/backicon.png" Height="10" VerticalAlignment="Center"/>
+                <TextBlock Text="Назад" Margin="5,0,0,0" VerticalAlignment="Center" Padding="0,0,0,1"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>
